@@ -589,6 +589,9 @@
 !     &   'fhour=',fhour,'zhour=',zhour,'zhour_dfin=',zhour_dfin,
 !     &   'zhour_dfi=',zhour_dfi
 
+      if (ldiag3d .and. mod(kdt,60) == 0) then
+        call WRT3D_hyb(0,kdt/60,global_lats_r,lonsperlar)
+      end if
       if (lsout .and. kdt /= 0 ) then
 !WY bug fix.
 !-----------
