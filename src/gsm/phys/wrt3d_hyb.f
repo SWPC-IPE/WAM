@@ -61,20 +61,20 @@
       implicit none
 !
       integer, intent(in) :: nv
-      real(kind=kind_io8),dimension(lonr,lats_node_r,1),intent(in) ::   &
+      real(kind=kind_io8),dimension(lonr,lats_node_r,1),intent(in) ::   
      &                                                            buffo
 ! Local variables
       real(kind=kind_io4),dimension(lonr) :: lons
 
-      integer :: id, x_dimid, x_varid, y_dimid, y_varid, t_dimid,       &
+      integer :: id, x_dimid, x_varid, y_dimid, y_varid, t_dimid,       
      &           t_varid, varid, t_len, i, adj
       integer, parameter :: num_variables = 6
       integer, dimension(3) :: dimids
 
-      character(len=*), dimension(num_variables), parameter :: vars  =  &
+      character(len=*), dimension(num_variables), parameter :: vars  =  
      &           (/"qno","un1","euv","uv","un2","un3"/)
-      character(len=*), dimension(num_variables), parameter :: lvars =  &
-     &           (/"NO Cooling","Unknown","EUV Heating","UV Heating",   &
+      character(len=*), dimension(num_variables), parameter :: lvars =  
+     &           (/"NO Cooling","Unknown","EUV Heating","UV Heating",   
      &             "Unknown","Unknown"/)
       character(len=8), parameter :: fname = "dt3dt.nc"
 
@@ -100,7 +100,7 @@
         call check(nf90_def_var(id,"time",NF90_DOUBLE,t_dimid,t_varid))
         call check(nf90_put_att(id,t_varid,"axis","T"))
         call check(nf90_put_att(id,t_varid,"long_name","time"))
-        call check(nf90_put_att(id,t_varid,"units",                     &
+        call check(nf90_put_att(id,t_varid,"units",                     
        &                        "days since 1970-01-01"))
 
         dimids = (/ x_dimid, y_dimid, t_dimid /)
@@ -122,8 +122,6 @@
 
         call check(nf90_close(id))
       end if
-
-      call check(nf90_open(fname, "NF90_WRITE", id)
 
       call check(nf90_inq_dimid(id, "time", t_dimid))
       call check(nf90_inquire_dimension(id, t_dimid, len=t_len))
