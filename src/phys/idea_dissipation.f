@@ -57,6 +57,8 @@
           adu(i,k)=adu(i,k)+dudt(i,k,1)*dtp
           adv(i,k)=adv(i,k)+dudt(i,k,2)*dtp
           adt(i,k)=adt(i,k)+dudt(i,k,3)*dtp  
+
+          dt6dt(i,k,6) = rho(i,k)
         enddo
       enddo
       return

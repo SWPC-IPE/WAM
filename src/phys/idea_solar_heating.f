@@ -17,7 +17,7 @@
 !=============================================================================
       subroutine idea_sheat(im,ix,levs,te,dt,cospass,
      & o_n,o2_n,o3_n,n2_n,     
-     & ro,cp,lat,dayno,prsl,zg,grav,am,maglat,dt6dt, f107, f107d, kpa)
+     & rho,cp,lat,dayno,prsl,zg,grav,am,maglat,dt6dt, f107, f107d, kpa)
 !----------------------------------------------------------------------------
 ! calculete solar heating, NO coooling from 2Pa up
 !----------------------------------------------------------------------------
@@ -50,7 +50,7 @@
       real, intent(in)    :: prsl(ix,levs)!layer press (Pa)
       real, intent(in)    :: zg(ix,levs)!layer height (m)
       real, intent(in)    :: grav(ix,levs)! (m/s2)
-      real, intent(in)    :: ro(ix,levs)  ! density (kg/m3) 
+      real, intent(in)    :: rho(ix,levs)  ! density (kg/m3) 
       real, intent(inout) :: dt6dt(ix,levs,6)  ! 
       real, intent(out)   :: dt(ix,levs) ! (K/s) solar heating rate
 ! Locals
@@ -110,7 +110,7 @@
 ! 
         do k=nps,levs
 !    
-          rcpro = 1./(cp(i,k)*ro(i,k))
+          rcpro = 1./(cp(i,k)*rho(i,k))
           dt6dt(i,k,1)=qno(k)*rcpro
           dt6dt(i,k,3)=sh1(k)*rcpro
           dt6dt(i,k,4)=sh2(k)*rcpro
@@ -123,7 +123,6 @@
           dt6dt(i,k,1)=0.
           dt6dt(i,k,3)=0.
           dt6dt(i,k,4)=0.
-          dt6dt(i,k,5)=0.
         enddo ! k
 
       enddo !i
