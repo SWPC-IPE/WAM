@@ -24,7 +24,7 @@
 !     temperature tendencies
 !
       kmsk = 0
-      do nv=1,4 ! do not output other variables
+      do nv=1,6
         do k=1,levs
           glolal=0.
           do lan=1,lats_node_r
@@ -69,26 +69,28 @@
 
       integer :: id, x_dimid, x_varid, y_dimid, y_varid, t_dimid,
      &           t_varid, varid, t_len, i, adj, z_dimid, z_varid
-      integer, parameter :: numv = 4
+      integer, parameter :: numv = 6
       integer, parameter :: num_variables = 6
       integer, dimension(4) :: dimids
       integer, dimension(levs) :: nlevs
 
       character(len=*), dimension(num_variables), parameter :: vars  =
-     &           (/"qno","wtot","euv","uv","un1","un2"/)
+     &           (/"qno","wtot","euv","uv","cp","rho"/)
       character(len=*), dimension(num_variables), parameter :: lvars =
      &           (/"NO Cooling","Total Heating","EUV Heating",
-     &             "UV Heating","Unused 1","Unused 2"/)
+     &             "UV Heating","Specific Heat","Total Density"/)
+      character(len=*), dimension(num_variables), parameter :: units =
+     &           (/"K/s","K/s","K/s","K/s","J/kg/K","kg/m^3"/)
       character(len=8), parameter :: fname = "dt6dt.nc"
 
-      character(len=31) :: units
+      character(len=31) :: time_units
 
       logical :: exists
 !
       inquire( file = fname, exist=exists )
 
       if (.not. exists) then
-        write(units, "(A12,I0.4,A1,I0.2,A1,I0.2,A1,I0.2,A6)"),
+        write(time_units, "(A12,I0.4,A1,I0.2,A1,I0.2,A1,I0.2,A6)"),
      &   "hours since ", idate(4), "-", idate(2), "-", idate(3),
      &   " ", idate(1),":00:00"
         call check(nf90_create(fname, nf90_clobber, id))
@@ -113,13 +115,13 @@
         call check(nf90_def_var(id,"time",NF90_REAL,t_dimid,t_varid))
         call check(nf90_put_att(id,t_varid,"axis","T"))
         call check(nf90_put_att(id,t_varid,"long_name","time"))
-        call check(nf90_put_att(id,t_varid,"units",units))
+        call check(nf90_put_att(id,t_varid,"units",time_units))
 
         dimids = (/ x_dimid, y_dimid, z_dimid, t_dimid /)
 
         do i=1,numv
           call check(nf90_def_var(id,vars(i),NF90_REAL,dimids,varid))
-          call check(nf90_put_att(id,varid,"units","K/s"))
+          call check(nf90_put_att(id,varid,"units",units(i)))
           call check(nf90_put_att(id,varid,"long_name", lvars(i)))
         end do
 
