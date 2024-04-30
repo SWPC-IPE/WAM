@@ -270,7 +270,7 @@
 ! calculate cp and precompute [1/cp/rho =array] for dT/dt = Q/cp/rho
 !=================================================================
       call getcp_idea(im,ix,levs,ntrac,adr,cp,
-     &                thermodyn_id,gen_coord_hybrid)
+     &                thermodyn_id,gen_coord_hybrid,dt6dt)
 
 !============================================
 ! dissipation +GW physics/turbulent eddies
