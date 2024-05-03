@@ -51,7 +51,7 @@
       real, intent(in)    :: zg(ix,levs)!layer height (m)
       real, intent(in)    :: grav(ix,levs)! (m/s2)
       real, intent(in)    :: rho(ix,levs)  ! density (kg/m3) 
-      real, intent(inout) :: dt6dt(ix,levs,6)  ! 
+      real, intent(inout) :: dt6dt(ix,levs,7)  ! 
       real, intent(out)   :: dt(ix,levs) ! (K/s) solar heating rate
 ! Locals
       integer  i,k

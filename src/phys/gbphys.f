@@ -634,7 +634,7 @@
      &   ugrs, vgrs, tgrs, vvel, prsl, prslk, phil, swh, swhc, hlw, hlwc
 
 !idea add by hmhj
-      real(kind=kind_phys), intent(in) ::  dt6dt(ix,levs,6)
+      real(kind=kind_phys), intent(in) ::  dt6dt(ix,levs,7)
 
       real(kind=kind_phys), intent(inout) ::  qgrs(ix,levs,ntrac)
 

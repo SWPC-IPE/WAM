@@ -117,7 +117,7 @@
       real, intent(inout) :: adu(ix,levs)       ! W-E u
       real, intent(inout) :: adv(ix,levs)       ! S-N v
 !
-      real, intent(inout) :: dt6dt(ix,levs,6)   ! diagnostic 3D-array ....never used
+      real, intent(inout) :: dt6dt(ix,levs,7)   ! diagnostic 3D-array ....never used
 !                                               !
 ! (2)-wtot-merged (SH-LW, H2O, CO2, O2,O3), (4-5-6) for Strobel +Cooling
 ! (1)-MT_SHEAT(EUV+?),  (3) - Joule heating
@@ -414,6 +414,7 @@
           adu(i,k) = adu(i,k) + dtp*dudt(i,k)
           adv(i,k) = adv(i,k) + dtp*dvdt(i,k)
           adt(i,k) = adt(i,k) + dtp*dtdt(i,k)
+          dt6dt(i,k,7) = zg(i,k)
         enddo
       enddo
 !======================= WAM-IPE physics is completed ========

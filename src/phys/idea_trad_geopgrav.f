@@ -10,7 +10,7 @@
       integer, intent(in) :: ntrac  ! number of tracer
 !
       real, intent(in)    :: adr(ix,levs,ntrac)    ! tracer kg/kg
-      real, intent(inout) :: dt6dt(ix,levs,6)      ! diagnostic array
+      real, intent(inout) :: dt6dt(ix,levs,7)      ! diagnostic array
       real, intent(out)   :: xcp(ix,levs)          ! Cp (J/kg/K)
       integer thermodyn_id
       logical gen_coord_hybrid

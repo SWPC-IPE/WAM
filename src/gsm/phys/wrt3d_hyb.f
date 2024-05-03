@@ -6,13 +6,16 @@
       use machine
       implicit none
 !!
+      integer, parameter :: numv = 7
+      integer, parameter :: l0 = 90
+      integer, parameter :: ioproc=0
+!!
       integer, intent(in) :: kdt,nblck
-      real (kind=kind_rad),dimension(ngptc,levs,6,nblck,lats_node_r),
+      real (kind=kind_rad),dimension(ngptc,levs,numv,nblck,lats_node_r),
      &                     intent(in) :: dt6dt
       integer, intent(in), dimension(latr) :: global_lats_r, lonsperlar
       integer, dimension(4), intent(in) :: idate
 ! Local variables
-      integer, parameter :: ioproc=0
       integer :: nv,k,lan,lon,i,iblk,lons_lat,njeff,il,lat
       real (kind=kind_io4) :: wrkga(lonr,latr)
       real (kind=kind_io8) :: rtime
@@ -24,8 +27,8 @@
 !     temperature tendencies
 !
       kmsk = 0
-      do nv=1,6
-        do k=1,levs
+      do nv=1,numv
+        do k=l0,levs
           glolal=0.
           do lan=1,lats_node_r
             lat = global_lats_r(ipt_lats_node_r-1+lan)
@@ -69,18 +72,20 @@
 
       integer :: id, x_dimid, x_varid, y_dimid, y_varid, t_dimid,
      &           t_varid, varid, t_len, i, adj, z_dimid, z_varid
-      integer, parameter :: numv = 6
-      integer, parameter :: num_variables = 6
+      integer, parameter :: numv = 7
+      integer, parameter :: num_variables = 7
+      integer, parameter :: l0 = 90
       integer, dimension(4) :: dimids
       integer, dimension(levs) :: nlevs
 
       character(len=*), dimension(num_variables), parameter :: vars  =
-     &           (/"qno","wtot","euv","uv","cp","rho"/)
+     &           (/"qno","wtot","euv","uv","cp","rho","z"/)
       character(len=*), dimension(num_variables), parameter :: lvars =
      &           (/"NO Cooling","Total Heating","EUV Heating",
-     &             "UV Heating","Specific Heat","Total Density"/)
+     &             "UV Heating","Specific Heat","Total Density",
+     &             "Geometric Height"/)
       character(len=*), dimension(num_variables), parameter :: units =
-     &           (/"K/s","K/s","K/s","K/s","J/kg/K","kg/m^3"/)
+     &           (/"K/s","K/s","K/s","K/s","J/kg/K","kg/m^3","m"/)
       character(len=8), parameter :: fname = "dt6dt.nc"
 
       character(len=31) :: time_units
@@ -97,7 +102,7 @@
 
         call check(nf90_def_dim(id,"lon", lonr, x_dimid))
         call check(nf90_def_dim(id,"lat", latr, y_dimid))
-        call check(nf90_def_dim(id,"levs",levs, z_dimid))
+        call check(nf90_def_dim(id,"levs",levs-l0+1, z_dimid))
         call check(nf90_def_dim(id,"time",NF90_UNLIMITED,t_dimid))
 
         call check(nf90_def_var(id,"lon",NF90_REAL,x_dimid,x_varid))
@@ -139,7 +144,7 @@
 
         call check(nf90_put_var(id, x_varid, lons))
         call check(nf90_put_var(id, y_varid, asin(sinlat_r)*180/pi))
-        call check(nf90_put_var(id, z_varid, nlevs))
+        call check(nf90_put_var(id, z_varid, nlevs(l0:levs)))
 
         call check(nf90_close(id))
       end if
@@ -147,7 +152,7 @@
       call check(nf90_open(fname, NF90_WRITE, id))
 
       call check(nf90_inq_varid(id, vars(nv), varid))
-      call check(nf90_put_var(id,varid,workga,start=(/1,1,k,kdt/),
+      call check(nf90_put_var(id,varid,workga,start=(/1,1,k-l0+1,kdt/),
      &                              count=(/lonr,latr,1,1/)))
 
       if (nv .eq. 1) then

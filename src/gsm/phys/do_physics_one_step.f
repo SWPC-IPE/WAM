@@ -123,7 +123,7 @@
      &                                                     coszdg, sfalb
       real (kind=kind_phys), dimension(ngptc,levs,nblck,lats_node_r) ::
      &                          swh, swhc, hlw, hlwc
-      real (kind=kind_rad), dimension(ngptc,levs,6,nblck,lats_node_r)::
+      real (kind=kind_rad), dimension(ngptc,levs,7,nblck,lats_node_r)::
      &                          dt6dt
       REAL (KIND=KIND_RAD) HPRIME(NMTVR,LONR,LATS_NODE_R),
      &                     FLUXR(nfxr,LONR,LATS_NODE_R)

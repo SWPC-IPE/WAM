@@ -27,7 +27,7 @@
       real, intent(inout) :: adt(ix,levs)       ! temperature
       real, intent(inout) :: adu(ix,levs)       ! u
       real, intent(inout) :: adv(ix,levs)       ! v
-      real, intent(inout) :: dt6dt(ix,levs,6)   !     
+      real, intent(inout) :: dt6dt(ix,levs,7)   !     
        
 ! Local variables
       real up(ix,levs,3),dudt(ix,levs,3) 
@@ -113,7 +113,7 @@
       real, intent(out)   :: ma_i(ix,levs+1)    ! mean mass 
       real, intent(out)   :: dudt(ix,levs,3)    ! u,v,t tendency
      
-      real, intent(inout) :: dt6dt(ix,levs,6)    !  
+      real, intent(inout) :: dt6dt(ix,levs,7)    !  
 ! Local variables
       real o_ni(levs+1),o2_ni(levs+1),n2_ni(levs+1)
       real mu_i(levs+1),la_i(levs+1),cp1(levs)

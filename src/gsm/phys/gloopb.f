@@ -150,9 +150,9 @@
      &                            swh, swhc, hlw, hlwc
 !!
       real (kind=kind_rad)  hprime(nmtvr,lonr,lats_node_r)
-      real(kind=kind_rad),dimension(ngptc,levs,6,nblck,lats_node_r) ::
+      real(kind=kind_rad),dimension(ngptc,levs,7,nblck,lats_node_r) ::
      &                            dt6dt
-      real (kind=kind_rad), dimension(ngptc, levs, 6) :: dt6dt_v
+      real (kind=kind_rad), dimension(ngptc, levs, 7) :: dt6dt_v
 !!
       real (kind=kind_phys) phy_f3d(ngptc,levs,ntot3d,nblck,lats_node_r)
      &,                     phy_f2d(lonr,lats_node_r,ntot2d)
@@ -794,7 +794,7 @@
           endif
 
           if (ldiag3d) then
-            do k=1,6
+            do k=1,7
               do j=1,levs
                 do i=1,njeff
                   dt3dt_v(i,j,k) = dt3dt(i,j,k,iblk,lan)
@@ -1469,7 +1469,7 @@
           enddo
 !
           if (ldiag3d) then
-            do k=1,6
+            do k=1,7
               do j=1,levs
                 do i=1,njeff
                   dt6dt(i,j,k,iblk,lan) = dt6dt_v(i,j,k)
