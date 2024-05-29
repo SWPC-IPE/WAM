@@ -310,20 +310,12 @@
           no(k)=max(no(k), con_nzero)
         enddo
 !
-! incease NO by a factor when kpa gt 5.0, same with CTIPe, based on CHAMP
-! neutral density obervations 
-!  
-        do k=1,levs
-          if (kpa.gt.5.0.and.kpa.le.6.0) then
-            no(k) = no(k)*1.5
-          elseif (kpa.gt.6.0.and.kpa.le.7.0) then
-            no(k) = no(k)*2.5
-          elseif (kpa.gt.7.0.and.kpa.le.8.0) then
-            no(k) = no(k)*3.5
-          elseif (kpa.gt.8.0.and.kpa.le.9.0) then
-            no(k) = no(k)*4.5
-          endif
-        enddo
+! multiply NO by a linearly-scaled factor when kpa>=5.0
+! up to 100% increase at Kpa 9.0
+!
+        if (kpa.ge.5.0) then
+          no = no * (1. +  (kpa - 5.) * ( 2. - 1. ) / (9. - 5.) )
+        endif
 !
 !
 ! check no
