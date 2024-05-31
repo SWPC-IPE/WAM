@@ -204,6 +204,7 @@
 ! locals
 !  we have         33, 16,7 now...
 !      real :: eof(33,16,3),nom(33,16),z16(16), lat33(33)
+      real, parameter :: no_fac = 3.
       real :: mlat          ! degrees like in snoe data
       real ::  zm(no_nz16)
       real ::  dz(levs)
@@ -310,11 +311,10 @@
           no(k)=max(no(k), con_nzero)
         enddo
 !
-! multiply NO by a linearly-scaled factor when kpa>=5.0
-! up to 100% increase at Kpa 9.0
+! multiply NO by a linearly-scaled factor (defined above) when kpa>=5.0
 !
         if (kpa.ge.5.0) then
-          no = no * (1. +  (kpa - 5.) * ( 2. - 1. ) / (9. - 5.) )
+          no = no * (1. +  (kpa - 5.) * ( no_fac - 1. ) / (9. - 5.) )
         endif
 !
 !
