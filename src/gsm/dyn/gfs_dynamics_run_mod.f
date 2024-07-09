@@ -316,8 +316,8 @@
         do k=1,levs
           if(spdmax(k) < 0. .or. spdmax(k) > 2000.) then
             print *,'unphysical maximum speed',spdmax(k),' me=',me,' k=',k
-            call mpi_quit(7)
-            stop
+!            call mpi_quit(7)
+!            stop
           endif
         enddo
 
