@@ -28,7 +28,7 @@
 !
       kmsk = 0
       do nv=1,numv
-        if (nv .ge. 2 .and. nv .le 4) cycle
+        if (nv .ge. 2 .and. nv .le. 4) cycle
         do k=l0,levs
           glolal=0.
           do lan=1,lats_node_r
@@ -126,7 +126,7 @@
         dimids = (/ x_dimid, y_dimid, z_dimid, t_dimid /)
 
         do i=1,numv
-          if (nv .ge. 2 .and. nv .le 4) cycle
+          if (i .ge. 2 .and. i .le. 4) cycle
           call check(nf90_def_var(id,vars(i),NF90_REAL,dimids,varid))
           call check(nf90_put_att(id,varid,"units",units(i)))
           call check(nf90_put_att(id,varid,"long_name", lvars(i)))
